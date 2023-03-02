@@ -63,6 +63,7 @@ train_pipeline = [
     dict(
         type='LoadImageRSNABreastAux',
         img_prefix='/kaggle/input/rsna-breast-cancer-detection/train_images',
+        cropped=False,
         _scope_='mmcls'),
     dict(
         type='Resize',
@@ -105,7 +106,8 @@ train_pipeline = [
 test_pipeline = [
     dict(
         type='LoadImageRSNABreast',
-        img_prefix='/kaggle/input/rsna-breast-cancer-detection/train_images'),
+        img_prefix='/kaggle/input/rsna-breast-cancer-detection/train_images',
+        cropped=False),
     dict(
         type='Resize',
         scale=size,
