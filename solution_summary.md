@@ -4,7 +4,7 @@ I would like to express my gratitude to Kaggle for hosting this meaningful
 competition, and to my teammates, particularly @kepenon, who persevered
 alongside me throughout the entire competition.
 
-I would like to extend my gratitude to @thiovel for providing the fast DALI
+I would like to extend my gratitude to @theoviel for providing the fast DALI
 inference
 notebook, which greatly aided in the completion of this competition.
 Additionally, I
@@ -19,10 +19,10 @@ approach.
 
 ### Stages
 
-1. Pretrain a single view model in 1280 resolution with external dataset (Thanks
+1. Pretrain a single view model in 1280x1280 resolution with external dataset (Thanks
    to
    @pourchot, [Dataset](https://www.kaggle.com/competitions/rsna-breast-cancer-detection/discussion/377790))
-2. Fine-tune the single view model in 1536 resolution without external dataset
+2. Fine-tune the single view model in 1536x1536 resolution without external dataset
 3. Use the fine-tuned single view model to further fine-tune a dual view model
    and a four view model
 
@@ -128,7 +128,7 @@ fold 0 locally.
 | MultiLateralityDualView          | Yes           | -                                           | 0.52      | 0.53       |
 
 After careful evaluation, our team has selected the second SingleView model and
-the DualView model due to their higher Public LB score and Flod 0 score.
+the DualView model due to their higher Public LB score and Fold 0 score.
 
 The MultiLateralityDualView model, on the other hand, aims to compare the left
 and right breast when detecting cancer. We noticed that the image style varies
@@ -155,7 +155,8 @@ and development.
 * MultiLateralityDualView?(Holds potential in our opinion)
 
 ## Not work for us
-
+* Concat cropped image horizontally
+* Rule-based crop with cv2
 * Upsample dataset
 * Effcientnet, SE-ResNext
 * Mixup augmentation
