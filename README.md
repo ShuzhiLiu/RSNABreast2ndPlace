@@ -1,4 +1,7 @@
 # RSNABreast2ndPlace
+## Competition: 
+RSNA Screening Mammography Breast Cancer Detection  
+Find breast cancers in screening mammograms
 
 [Solution summary](solution_summary.md)
 
