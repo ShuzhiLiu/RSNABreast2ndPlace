@@ -1,5 +1,7 @@
 # RSNABreast2ndPlace
 
+[Solution summary](solution_summary.md)
+
 ## Files
 
 * `train_withbox_split_clean_encode.csv`:
