@@ -154,10 +154,11 @@ and development.
 * Large batchsize
 * Auxiliary loss
 * More training epochs
-* External dataset for pretrain
+* External dataset for 1st stage pretraining
 * MultiLateralityDualView?(Holds potential in our opinion)
 
 ## Not work for us
+* Train models with external dataset at 2nd stage
 * Concat cropped image horizontally
 * Rule-based crop with cv2
 * Upsample dataset
