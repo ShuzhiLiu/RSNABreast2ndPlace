@@ -111,6 +111,9 @@ was a slight improvement in the score and it remained stable. This suggests that
 the size of the breast may play a role in cancer detection. Taking this into
 account, our team decided not to crop the images for final submission.
 
+### TTA
+* Diagonal flip
+
 ### Best submission results of each model
 
 Our team has limited computational resources, and we only trained with five
@@ -158,7 +161,7 @@ and development.
 * Concat cropped image horizontally
 * Rule-based crop with cv2
 * Upsample dataset
-* Effcientnet, SE-ResNext
+* Effcientnet, SE-ResNext, SwinTransformer
 * Mixup augmentation
 * Max pooling
 * Lion optimizer
