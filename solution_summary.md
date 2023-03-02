@@ -28,7 +28,7 @@ approach.
 
 ### Model
 
-* Convnext small (from mmclassification)
+* ConvnextV1 small (from mmclassification)
 
 ## 1. Data preparation
 
@@ -53,7 +53,7 @@ approach.
 
 ## 3. Model
 
-Backbone: Convnext small
+Backbone: ConvnextV1 small
 
 ### Single view model
 
@@ -148,7 +148,7 @@ and development.
 
 ## What works
 
-* Convnext
+* ConvnextV1
 * EQL loss
 * High resolution
 * Large batchsize
@@ -182,3 +182,7 @@ The code includes a single view model, which has demonstrated strong performance
 with a Private
 Leaderboard score of 0.53. Furthermore, the results obtained with this model can
 be reliably reproduced using a single RTX 3090.
+
+## Acknowledgement
+
+We would like to express our gratitude to the Kaggle support system and the emotional support o of Rist inc. 
