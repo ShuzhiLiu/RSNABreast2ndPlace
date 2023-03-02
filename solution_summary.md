@@ -63,11 +63,11 @@ Backbone: Convnext small
 
 1. Cancer: EQL loss [link](https://github.com/Ezra-Yu/ACCV2022_FGIA_1st)
 2. Aux Loss with weight 0.1:
-    3. BIRADS: EQL loss
-    4. Density: EQL loss
-    5. Difficult_negative_case: EQL loss, only for negative case
-    5. View: CE loss
-    6. Invasive: CE loss, only for positive case
+    1. BIRADS: EQL loss
+    2. Density: EQL loss
+    3. Difficult_negative_case: EQL loss, only for negative case
+    4. View: CE loss
+    5. Invasive: CE loss, only for positive case
 
 ### Dual view model
 
