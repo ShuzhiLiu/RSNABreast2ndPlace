@@ -185,4 +185,4 @@ be reliably reproduced using a single RTX 3090.
 
 ## Acknowledgement
 
-We would like to express our gratitude to the Kaggle support system and the emotional support o of Rist inc. 
+We would like to express our gratitude to the Kaggle support system and the emotional support of Rist inc. 
