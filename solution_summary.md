@@ -168,7 +168,7 @@ and development.
 * Lion optimizer
 * BIRADS, density pseudo label
 * Train models by machine id
-* SWA? (No reduction in the local score also no improvement)
+* SWA? (Neither a reduction in the local score nor any improvement)
 * DualView? (Minor reduction in the Public LB score)
 
 ## Solution code
