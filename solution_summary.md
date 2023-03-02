@@ -134,7 +134,7 @@ After careful evaluation, our team has selected the second SingleView model and
 the DualView model due to their higher Public LB score and Fold 0 score.
 
 The MultiLateralityDualView model, on the other hand, aims to compare the left
-and right breast when detecting cancer. We noticed that the image style varies
+and right breasts when detecting cancer. We noticed that the image style varies
 significantly with machine IDs, but for a particular patient, the image style
 remains the same. Additionally, most patients only have cancer on one side of
 the breast. Therefore, we believed it would be more logical to enable the model
