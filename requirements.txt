@@ -1,4 +1,12 @@
-mmcv==2.0.0rc2
-mmengine==0.3.1
-mmdet==3.0.0rc3
-mmcls==1.0.0rc2
+mmcv==2.0.0rc4
+mmengine==0.6.0
+mmdet==3.0.0rc5
+mmcls==1.0.0rc5
+torch==1.13.1+cu117
+torchvision==0.14.1+cu117
+pydicom
+GDCM
+pylibjpeg
+pylibjpeg-libjpeg
+pandas
+albumentations

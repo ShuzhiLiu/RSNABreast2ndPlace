@@ -5,8 +5,10 @@ import warnings
 from copy import deepcopy
 from typing import Sequence, Union, List, Optional
 
+import cv2
 import numpy as np
 import pandas as pd
+import pydicom
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -16,7 +18,7 @@ from mmcls.registry import METRICS
 from mmcls.registry import MODELS
 from mmcls.structures.cls_data_sample import ClsDataSample
 from mmcls.utils import register_all_modules
-from mmcv.transforms import BaseTransform
+from mmcv.transforms import LoadImageFromFile, BaseTransform
 from mmengine.config import Config, ConfigDict, DictAction
 from mmengine.dist import all_reduce as allreduce
 from mmengine.evaluator import BaseMetric
@@ -28,6 +30,24 @@ from mmengine.utils import digit_version
 from mmengine.utils import is_str
 from mmengine.utils.dl_utils import TORCH_VERSION
 from torch.nn.modules.loss import _Loss
+
+
+def load_dicom(path):
+    """
+    This supports loading both regular and compressed JPEG images.
+    See the first sell with `pip install` commands for the necessary dependencies
+    """
+    img = pydicom.dcmread(path)
+    # pixel_sign = img[('0028', '1041')].value # Not this value
+    # img.PhotometricInterpretation = 'YBR_FULL'
+    data = img.pixel_array
+    data = data - np.min(data)
+    if np.max(data) != 0:
+        data = data / np.max(data)
+    data = (data * 255).astype(np.uint8)
+    if img.PhotometricInterpretation == "MONOCHROME1":
+        data = 255 - data
+    return cv2.cvtColor(data, cv2.COLOR_GRAY2BGR)
 
 
 # From https://github.com/Ezra-Yu/ACCV2022_FGIA_1st
@@ -120,6 +140,7 @@ class CsvGeneralDataset(CustomDataset):
             dtype=np.int64)
         return gt_labels
 
+
 @TRANSFORMS.register_module(force=True)
 class LoadImageRSNABreastAux(LoadImageFromFile):
     def __init__(self, to_float32: bool = False, color_type: str = 'color',
@@ -188,6 +209,7 @@ class LoadImageRSNABreastAux(LoadImageFromFile):
         results['aux_label'] = aux_label
 
         return results
+
 
 class MxDataSample(ClsDataSample):
     """
@@ -333,6 +355,42 @@ def optimal_f1(labels, predictions):
     f1s = [pfbeta(labels, predictions > thr) for thr in thres]
     idx = np.argmax(f1s)
     return f1s[idx], thres[idx]
+
+
+@METRICS.register_module(force=True)
+class RSNAPFBeta(BaseMetric):
+
+    def process(self, data_batch, data_samples: Sequence[dict]):
+        for data_sample in data_samples:
+            result = dict()
+
+            pred_label = data_sample['pred_label']
+            gt_label = data_sample['gt_label']
+
+            result['pred_scores'] = pred_label['score']
+
+            result['gt_score'] = gt_label['label']
+
+            # Save the result to `self.results`.
+            self.results.append(result)
+
+    def compute_metrics(self, results: List):
+        # concat
+        target = torch.stack([res['gt_score'] for res in results])
+        pred = torch.stack([res['pred_scores'][1] for res in results])
+        target = target.squeeze().cpu().numpy().flatten()
+        pred = pred.squeeze().cpu().numpy().flatten()
+        assert len(target) == len(
+            pred), f"target: {len(target)}, pred: {len(pred)}"
+
+        f1, thres = optimal_f1(target, pred)
+
+        result_metrics = dict()
+
+        result_metrics['pf1'] = f1
+        result_metrics['thres'] = thres
+
+        return result_metrics
 
 
 @MODELS.register_module(force=True)

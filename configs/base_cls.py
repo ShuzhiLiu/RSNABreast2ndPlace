@@ -104,7 +104,7 @@ train_pipeline = [
 ]
 test_pipeline = [
     dict(
-        type='LoadImageRSNABreast',
+        type='LoadImageRSNABreastAux',
         img_prefix='/kaggle/input/rsna-breast-cancer-detection/train_images'),
     dict(
         type='Resize',
